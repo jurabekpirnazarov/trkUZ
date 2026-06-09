@@ -36,14 +36,15 @@ histories = defaultdict(lambda: deque(maxlen=MAX_HISTORY))
 
 async def start(update: Update, _: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
-        "Hi! I'm the trk.uz support assistant. Ask me anything about the site.\n"
-        "Use /reset to clear the conversation."
+        "Assalomu alaykum! Men trk.uz qo'llab-quvvatlash yordamchisiman. "
+        "Sayt haqida istalgan savolingizni bering.\n"
+        "Suhbatni tozalash uchun /reset buyrug'ini yuboring."
     )
 
 
 async def reset(update: Update, _: ContextTypes.DEFAULT_TYPE):
     histories[update.effective_chat.id].clear()
-    await update.message.reply_text("Conversation cleared.")
+    await update.message.reply_text("Suhbat tozalandi.")
 
 
 async def handle(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -51,7 +52,7 @@ async def handle(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (update.message.text or "").strip()
 
     if not text:
-        await update.message.reply_text("Please send a text question.")
+        await update.message.reply_text("Iltimos, matnli savol yuboring.")
         return
     if len(text) > 2000:
         text = text[:2000]
@@ -65,7 +66,7 @@ async def handle(update: Update, context: ContextTypes.DEFAULT_TYPE):
     except Exception:
         log.exception("answer failed")
         await update.message.reply_text(
-            "Sorry, something went wrong. Please try again in a moment."
+            "Kechirasiz, xatolik yuz berdi. Iltimos, birozdan so'ng qayta urinib ko'ring."
         )
         return
 
@@ -74,7 +75,7 @@ async def handle(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     out = reply
     if sources:
-        out += "\n\nSources:\n" + "\n".join(sources[:3])
+        out += "\n\nManbalar:\n" + "\n".join(sources[:3])
     await update.message.reply_text(out[:4000])  # Telegram limit is ~4096
 
 
