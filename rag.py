@@ -60,9 +60,10 @@ def get_collection():
 SYSTEM = """You are the customer-support assistant for the website trk.uz.
 Answer using ONLY the provided context taken from the website.
 Rules:
-- Reply in the SAME language as the user's question.
-- If the answer is not in the context, say you don't have that information yet and
-  suggest contacting support. Never invent facts, dates, prices, or contacts.
+- ALWAYS reply in Uzbek (o'zbek tilida), regardless of the question's language.
+- If the answer is not in the context, say in Uzbek that you don't have that
+  information yet and suggest contacting support. Never invent facts, dates,
+  prices, or contacts.
 - Be concise, friendly, and helpful.
 """
 
@@ -109,13 +110,13 @@ def answer(question: str, history: list = None):
     history = history or []
     question = (question or "").strip()[:MAX_INPUT]
     if not question:
-        return "Please type a question.", []
+        return "Iltimos, savolingizni yozing.", []
 
     search_query = rewrite_query(question, history)
     chunks = retrieve(search_query)
     if not chunks:
-        return ("I don't have information about that yet. "
-                "Please contact trk.uz support directly."), []
+        return ("Bu haqida hozircha ma'lumotim yo'q. "
+                "Iltimos, trk.uz qo'llab-quvvatlash xizmatiga murojaat qiling."), []
 
     context = _build_context(chunks)
     msgs = [{"role": "system", "content": SYSTEM}]
@@ -129,8 +130,8 @@ def answer(question: str, history: list = None):
         )
         text = (r.choices[0].message.content or "").strip()
     except Exception:
-        return ("Sorry, I'm having trouble responding right now. "
-                "Please try again in a moment."), []
+        return ("Kechirasiz, hozir javob berishda muammo bo'lyapti. "
+                "Iltimos, birozdan so'ng qayta urinib ko'ring."), []
 
     sources, seen = [], set()
     for _, meta in chunks:
