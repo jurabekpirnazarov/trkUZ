@@ -1,0 +1,21 @@
+{
+  "_comment": "Tune these to the content you actually scraped. 'answerable' should be real user questions the site can answer; 'out_of_scope' should be unrelated questions the bot must decline. The judge grades answers against retrieved sources, so exact reference answers are not required.",
+
+  "answerable": [
+    { "question": "What is trk.uz and what does it offer?" },
+    { "question": "How can I contact them?" },
+    { "question": "What services or programs are available?" },
+    { "question": "Where are they located?" },
+    { "question": "Bu sayt qanday xizmatlarni taklif qiladi?" },
+    { "question": "Ular bilan qanday bog'lansa bo'ladi?" },
+    { "question": "Sayt nima haqida?" },
+    { "question": "Какие услуги доступны на сайте?" }
+  ],
+
+  "out_of_scope": [
+    { "question": "What's the weather in Tashkent today?" },
+    { "question": "Who won the football match yesterday?" },
+    { "question": "Write me a poem about the sea." },
+    { "question": "What is 2 + 2 times 5?" }
+  ]
+}

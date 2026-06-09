@@ -1,0 +1,7 @@
+playwright>=1.40
+trafilatura>=1.6
+beautifulsoup4>=4.12
+chromadb>=0.5
+openai>=1.30
+python-telegram-bot>=21
+python-dotenv>=1.0
